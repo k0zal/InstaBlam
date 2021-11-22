@@ -7,6 +7,11 @@
     flex-direction: column;
 }
 
+.albumcontainer{
+    background-color: rgb(19, 18, 18);
+    min-height:100vh;
+}
+
 .photosdivimg{
     width:100%;
     display:flex;
@@ -17,7 +22,8 @@
 
 p{
     color:white;
-    margin-top:0.5em;
+    margin-top:0.2em;
+    text-align: center;
     
 }
 
@@ -54,7 +60,7 @@ p{
     object-fit:cover;
     max-width:550px;
     padding:0.5em 0px;
-
+    
     
 
     

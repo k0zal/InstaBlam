@@ -1,18 +1,23 @@
-import React, {useContext, useState} from 'react'
-import "./Slider.css"
-import {Context} from "./ContextProvider"
+import React, {useContext, useEffect} from 'react'
+import "../styles/Slider.css"
+import {Context} from "../ContextProvider"
 
 
 function Slider() {
 
+    
+    
+    
 
-    const {image, removeImg} = useContext(Context)
+    const {image, removeImg, dloadImage} = useContext(Context)
+
+   
     return (
         <div className="container-slider">
             {image.map((data,i) => {
                 return(
                     <div key={data.id} className="slide">
-                        <img src={data.original} />
+                        <img src={data.original} alt={`Number ${data.id}`}/>
                         {console.log(image)}
                         {
                             navigator.geolocation ? 
@@ -21,7 +26,7 @@ function Slider() {
                         <div className="buttonsdiv">
                             
                         <button className="slidebutt" style={{marginTop:"2px", width: "15%", height: "40px", marginRight:"0.2em"}} onClick={() => removeImg(data.id)}>X</button>
-                        <button className="slidebutt" style={{marginTop:"2px", height: "40px"}} >Save Image</button>
+                        <button className="slidebutt" onClick={() => dloadImage(data.original, i)} style={{marginTop:"2px", height: "40px"}} >Save Image</button>
                         </div>
                     </div>
                 )
