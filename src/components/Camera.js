@@ -4,11 +4,11 @@ import { Context } from "../ContextProvider";
 import { nanoid } from "nanoid";
 import {Link} from "react-router-dom"
 import PhotoAlbumIcon from "@mui/icons-material/PhotoAlbum";
-import Cookies from 'js-cookie'
+
 
 function Camera() {
-  const { image, setImage, checkCookie} = useContext(Context);
-  const [cameraDisabled, setCameraDisabled] = useState();
+  const { image, setImage,} = useContext(Context);
+  const [cameraDisabled, setCameraDisabled] = useState(true);
   const [status, setStatus] = useState(null);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
@@ -43,7 +43,7 @@ function Camera() {
     let context = photo.getContext("2d");
     context.drawImage(video, 0, 0, width, height);
 
-    let data = photo.toDataURL("image/png");
+    let data = photo.toDataURL("image/jpeg", 0.7);
 
     const newData = [
       ...image,
@@ -56,11 +56,10 @@ function Camera() {
       },
     ];
     setImage(newData);
-    Cookies.set("images", JSON.stringify((newData)))
-
+    localStorage.setItem("images", JSON.stringify(newData))
     setHasPhoto(true);
   }
-  console.log(countdown)
+ 
  
 function delayedPhoto(){
     setCountdown(true)
@@ -80,21 +79,13 @@ useEffect(() => {
     }
 
     if(time === 0 && setCountdown){
-        console.log("SNAP!")
+        
         setCountdown(false)
     }
 
 }, [time, setCountdown])
 
-//   useEffect(() => {
-//     setInterval(() => {
-//         setTime(prevTime => prevTime - 1)
-//         if(time === 0){
-//             setCountdown(false)
-//             setTime(null)
-//         }
-//     }, 1000);
-//  }, [countdown])
+
   
   function getLocation() {
     if (!navigator.geolocation) {
@@ -117,7 +108,7 @@ useEffect(() => {
 
   function showCamera() {
     if (navigator.mediaDevices) {
-      setCameraDisabled(false);
+      
 
       navigator.mediaDevices
         .getUserMedia({
@@ -130,16 +121,21 @@ useEffect(() => {
           let video = videoRef.current;
           video.srcObject = stream;
           video.play();
+          setCameraDisabled(false)
         })
         .catch((err) => {
           console.log(err);
+          
         });
-    } else {
-      setCameraDisabled(true);
+        
     }
+    else{setCameraDisabled(false)}
   }
 
 
+  useEffect(() => {
+    console.log("just nu kameran är", cameraDisabled)
+  }, [cameraDisabled])
 
   function closePhoto() {
     let photo = photoRef.current;
@@ -167,12 +163,8 @@ useEffect(() => {
     if (navigator.geolocation) {
       fetchGeo();
     }
-    // lägg till geolocation grejen fr att få data att sätta på bilder
+    // add geolocation to get lat and long metadata
   }, [videoRef]);
-
-//   useEffect(() => {
-//     showCamera()
-//   }, [])
 
 
 
@@ -188,9 +180,11 @@ useEffect(() => {
       <div className="containercam">
         <div className="camera">
           <video ref={videoRef}></video>
-          <button onClick={takePhoto} disabled={cameraDisabled}>
-            {cameraDisabled ? "Enable your camera" : "Take photo!"}
-          </button>
+          {countdown ? null
+          
+: <button onClick={takePhoto} disabled={cameraDisabled}>
+{cameraDisabled ? "Enable your camera" : "Take photo!"}
+</button> }
           {!cameraDisabled ?
           <button className={time > 0 ? "blink" : null} onClick={delayedPhoto} disabled={cameraDisabled}>
             {time <= 0 ? "Start Timer!" : time }

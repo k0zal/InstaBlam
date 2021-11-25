@@ -4,6 +4,10 @@ import { Switch, Route,} from "react-router-dom";
 import Album from "./components/Album";
 import Camera from "./components/Camera";
 
+
+
+
+
 function App() {
   
 

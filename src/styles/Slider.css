@@ -41,7 +41,7 @@ p{
     align-items: center;
     max-width:551px;
     max-height:auto;
-    border:1PX dotted rgb(48, 47, 47);
+    background-color: rgb(51, 51, 51);
     border-radius:8px;
     margin-bottom:2em;
 }

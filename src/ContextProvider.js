@@ -1,11 +1,12 @@
-import Cookies from "js-cookie";
+
 import React, { useState, useEffect } from "react";
-import FileSaver, { saveAs } from 'file-saver';
+import FileSaver from 'file-saver';
 const Context = React.createContext();
 
-const xiar = JSON.parse(Cookies.get("images"))
 
-console.log(xiar)
+
+
+
 
 function ContextProvider({children}) {
     
@@ -13,13 +14,16 @@ function ContextProvider({children}) {
         
     ])
 
+    
+
     function checkCookie(){
-        const cookieExists = Cookies.get("images")
+        const cookieExists = localStorage.getItem("images")
+        
         if(!cookieExists){
-            Cookies.set("images", image)
+            localStorage.setItem("images", image)
         }
         else{
-            const cookied = JSON.parse(Cookies.get("images"))
+            const cookied = JSON.parse(localStorage.getItem("images"))
             setImage(cookied)
         }
         
@@ -37,6 +41,7 @@ function ContextProvider({children}) {
               
           })
           setImage(removedItem)
+          localStorage.setItem("images", JSON.stringify(removedItem))
       }
 
       function dloadImage(imgid, name){
