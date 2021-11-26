@@ -18,7 +18,7 @@ function Slider() {
                 return(
                     <div key={data.id} className="slide">
                         <img src={data.original} alt={`Number ${data.id}`}/>
-                        {console.log("finns?", data)}
+                       
                         {
                             navigator.geolocation ? 
                         <p>Taken at : {data.city}, {data.country} {data.dateTaken}</p>

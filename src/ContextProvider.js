@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import FileSaver from 'file-saver';
-import { nanoid } from "nanoid"
+
 const Context = React.createContext();
 
 
@@ -27,7 +27,7 @@ function ContextProvider({children}) {
         }
     ])
 
-    console.log(image)
+    
 
     function checkCookie(){
         const cookieExists = localStorage.getItem("images")
