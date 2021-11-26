@@ -5,6 +5,7 @@ import {Context} from "../ContextProvider"
 
 
 
+
 function Slider() {
 
 
@@ -19,10 +20,9 @@ function Slider() {
                     <div key={data.id} className="slide">
                         <img src={data.original} alt={`Number ${data.id}`}/>
                        
-                        {
-                            navigator.geolocation ? 
+                            
                         <p>Taken at : {data.city}, {data.country} {data.dateTaken}</p>
-            : <p>Location not available, turn on geolocation</p>}
+           
                         <div className="buttonsdiv">
                             
                         <button className="slidebutt" style={{marginTop:"2px", width: "15%", height: "40px", marginRight:"0.2em"}} onClick={() => removeImg(data.id)}>X</button>

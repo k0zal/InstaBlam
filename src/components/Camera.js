@@ -7,7 +7,7 @@ import PhotoAlbumIcon from "@mui/icons-material/PhotoAlbum";
 
 
 function Camera() {
-  const { image, setImage,} = useContext(Context);
+  const { image, setImage} = useContext(Context);
   const [cameraDisabled, setCameraDisabled] = useState(true);
   const [status, setStatus] = useState(null);
   const [lat, setLat] = useState(null);
@@ -50,8 +50,8 @@ function Camera() {
       {
         original: data,
         dateTaken: fullDate,
-        city: location[0],
-        country: location[1],
+        city: status ? location[0] : "Not Available",
+        country: status ? location[1] : "",
         id: nanoid(),
       },
     ];
@@ -89,23 +89,25 @@ useEffect(() => {
   
   function getLocation() {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      
     } else {
-      setStatus("Locating...");
+    
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus(null);
+          setStatus(true);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
         () => {
-          setStatus("Unable to retrieve your location");
-          console.log(status)
+          setStatus(false)
+          
+          
         }
       );
     }
   }
 
+  console.log(status)
   function showCamera() {
     if (navigator.mediaDevices) {
       
@@ -133,9 +135,6 @@ useEffect(() => {
   }
 
 
-  useEffect(() => {
-    console.log("just nu kameran är", cameraDisabled)
-  }, [cameraDisabled])
 
   function closePhoto() {
     let photo = photoRef.current;

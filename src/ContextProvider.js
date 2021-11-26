@@ -10,6 +10,8 @@ const Context = React.createContext();
 
 function ContextProvider({children}) {
     
+
+    const [status, setStatus] = useState();
     const [image, setImage] = useState([
         {
             original: "https://i.pinimg.com/originals/8e/9d/6d/8e9d6de0173ada66349f3cdd85895330.jpg",
@@ -63,7 +65,7 @@ function ContextProvider({children}) {
 
 
     return (
-        <Context.Provider value={{image , setImage, removeImg, checkCookie, dloadImage}}>
+        <Context.Provider value={{image , setImage, removeImg, checkCookie, dloadImage, status, setStatus}}>
             {children}
         </Context.Provider>
     )
